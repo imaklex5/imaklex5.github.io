@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="试着想一想，在我们使用集成开发环境(IDE)的时候是如何运行一个 hello world 程序的，在我们编码完成之后，只需要点击一下运行按钮，一句最经典的“Hello World”就会出现在控制台中。在这个过程中，编译器为我们提供了默认的编译、链接参数，才使得编译的过成变得如此简单。也就是这样我们往往会忽视强大的功能背后细节——运行键的背后隐藏了什么？  对于简单的 hello world 程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初探hello world">
+<meta property="og:url" content="https://imaklex5.github.io/posts/72cd66a0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="试着想一想，在我们使用集成开发环境(IDE)的时候是如何运行一个 hello world 程序的，在我们编码完成之后，只需要点击一下运行按钮，一句最经典的“Hello World”就会出现在控制台中。在这个过程中，编译器为我们提供了默认的编译、链接参数，才使得编译的过成变得如此简单。也就是这样我们往往会忽视强大的功能背后细节——运行键的背后隐藏了什么？  对于简单的 hello world 程序">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://imaklex5.github.io/assets/image-20221031235111007.png">
+<meta property="og:image" content="https://imaklex5.github.io/assets/image-20221031235457390.png">
+<meta property="og:image" content="https://imaklex5.github.io/assets/image-20221101002344878.png">
+<meta property="article:published_time" content="2022-11-08T05:33:17.000Z">
+<meta property="article:modified_time" content="2022-11-08T05:47:23.302Z">
+<meta property="article:author" content="Orzbot">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="编译">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imaklex5.github.io/assets/image-20221031235111007.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>初探hello world</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/4a17b156/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/43a1a24c/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://imaklex5.github.io/posts/72cd66a0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://imaklex5.github.io/posts/72cd66a0/&text=初探hello world"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://imaklex5.github.io/posts/72cd66a0/&is_video=false&description=初探hello world"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=初探hello world&body=Check out this article: https://imaklex5.github.io/posts/72cd66a0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://imaklex5.github.io/posts/72cd66a0/&name=初探hello world&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://imaklex5.github.io/posts/72cd66a0/&t=初探hello world"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91-Preprocessing"><span class="toc-number">1.</span> <span class="toc-text">预编译(Preprocessing)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91-Compilation"><span class="toc-number">2.</span> <span class="toc-text">编译(Compilation)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">词法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">语法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">语义分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90"><span class="toc-number">2.4.</span> <span class="toc-text">中间语言生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.</span> <span class="toc-text">代码生成与优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96-Assembly"><span class="toc-number">3.</span> <span class="toc-text">汇编(Assembly)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5-Linking"><span class="toc-number">4.</span> <span class="toc-text">链接(Linking)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">4.1.</span> <span class="toc-text">静态链接</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        初探hello world
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Orzbot</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-08T05:33:17.000Z" itemprop="datePublished">2022-11-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>, <a class="tag-link-link" href="/tags/%E7%BC%96%E8%AF%91/" rel="tag">编译</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>试着想一想，在我们使用集成开发环境(IDE)的时候是如何运行一个 hello world 程序的，在我们编码完成之后，只需要点击一下运行按钮，一句最经典的“Hello World”就会出现在控制台中。在这个过程中，编译器为我们提供了默认的编译、链接参数，才使得编译的过成变得如此简单。也就是这样我们往往会忽视强大的功能背后细节——运行键的背后隐藏了什么？</p>
+</blockquote>
+<p>对于简单的 hello world 程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hello.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 linux 下使用 gcc 进行编译和运行只需要一行命令：<code>gcc hello.c &amp;&amp; run a.out</code>就可以得到想要的输出。</p>
+<p>在这一条命令背后，gcc 调用了其他的程序来完成了编译的四个步骤：<strong>预处理</strong>、<strong>编译</strong>、<strong>汇编</strong>和<strong>链接</strong>。也就是说，gcc 其实是一堆后台程序的包装，它会根据不同的参数要求去调用预编译编译程序、汇编器、连接器</p>
+<h2 id="预编译-Preprocessing"><a href="#预编译-Preprocessing" class="headerlink" title="预编译(Preprocessing)"></a>预编译(Preprocessing)</h2><p>预处理过程由预编译器(cpp)来完成，其输入是后缀为.c&#x2F;.cpp&#x2F;.cxx&#x2F;.hpp 的字符文件，处理对象是文件中’#’开头的部分，输出则为后缀为.i&#x2F;.ii 的字符文件，这一步相当于如下命令:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -E hello.c -o hello.i</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ cpp hello.c &gt; hello.i</span><br></pre></td></tr></table></figure>
+
+<p>预编译的过程主要处理源代码中的预编译指令，其规则如下：</p>
+<ul>
+<li>将所有宏定义<code>#deifne</code>删除，并展开所有宏定义。也就是说我们可以通过查看预编译文件来判断我们的宏是否正确展开了</li>
+<li>处理所有的条件预编译指令，如<code>#if</code>,<code>#endif</code>,<code>#elif</code>,<code>ifdef</code>等</li>
+<li>处理预编译指令<code>#include </code>，将所有引入的头文件插入到指令对应的位置。这个过程是递归进行的，也就是说如果引入的文件中也包含<code>#include</code>指令，则也会对文件进行引入</li>
+<li>删除所有注释</li>
+<li>添加行号和文件名标识，用于 debug 和异常</li>
+<li>保留所有<code>#pargma</code>指令，编译器会用到这些指令</li>
+</ul>
+<p>经过这个过程，最终得到的.i&#x2F;.ii 文件将不会含有任何宏定义。</p>
+<p>我们现在可以打开经过预处理以后的<code>hello.i</code>：<img src="/assets/image-20221031235111007.png" alt="image-20221031235111007"></p>
+<p>可以发现文件由原来的 6 行变成了 732 行，差距超乎想象，则这个过程中，预编译器所做的正是我们上述规则所描述的内容：展开，展开，一定要展开！在不展开这些宏定义，程序哪里有美好的未来~</p>
+<h2 id="编译-Compilation"><a href="#编译-Compilation" class="headerlink" title="编译(Compilation)"></a>编译(Compilation)</h2><p>现在的 gcc 通常会把预编译和编译合并，使用一个程序<code>cc1</code>完成操作。编译过程的输入是预编译得到的字符文件，然后对该文件进行<strong>词法分析</strong>，<strong>语法分析</strong>，<strong>语义分析</strong>以及<strong>目标代码优化</strong>，输出为<strong>汇编代码</strong>文件。可以使用如下指令完成该操作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -S hello.i -o hello.s</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ gcc -S hello.c -o hello.s</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ /path/to/cc1 hello.c</span><br></pre></td></tr></table></figure>
+
+<p>我们的源代码文件其实就是一个文本文件，现在是想，如果让你来看一个 c 的源代码是否正确，你会怎么做？首先，从最简单的开始，我们要知道我们需要对什么进行检查，然后就是需要对语法做检查，在此之后就是对程序的逻辑部分做检查了。大体看来，编译器的想法是和我们差不多的。</p>
+<h3 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h3><p>这一步就是要列出我们需要检查的内容的清单，并形成一定结构。源代码会经由一个扫描器，该扫描器应用类似于有限自动机的算法来将我们的文本内容切分为一系列记号(关键字、标识符、字面量、特殊符号)并将其存放的符号表中</p>
+<h3 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h3><p>在完成词法分析之后，语法分析器就会对符号表中的内容进行语法分析，最后会生成语法树，这是一棵以表达式为结点的树，整个过程采用上下文无关语法。在进行语法分析的同时，很多运算符的优先级和含义就被确定下来了，这个过程中程序中的表达式不合法的错误就会被检测出来，编译器就会爆出语法分析阶段的错误。</p>
+<h3 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h3><p>这个过程由语义分析器来完成，虽然被称为语义分析，但是编译器只是完成表达式层面的分析，它并不了解语句的真实含义。其所能分析的只是静态语义(声明、类型匹配、类型转换)。经过此过程，整个语法树的表达式就会被标识上类型，如果有类型转换的需求，那么相应的地方就会被加上转换节点。</p>
+<h3 id="中间语言生成"><a href="#中间语言生成" class="headerlink" title="中间语言生成"></a>中间语言生成</h3><p>上述三个过程是我们可以轻易想到的。但是，在现代编译器中往往还有这很多层次的优化，在源代码级别也会有一个优化过程，该过程实用的是源码优化器。直接对树进行优化是比较困难的，所以源码优化器通常会把语法树转换成中间代码(语法树的顺序表示，如：三地址码、P-代码等)，这样的代码很接近真实代码，但是它是和目标机器和运行环境无关的，也正是因为这个特点，中间代码使得表一起可以分为前端和后端。前端只负责生成与机器无关的中间代码，后端则负责将中间代码转换成目标机器代码。</p>
+<h3 id="代码生成与优化"><a href="#代码生成与优化" class="headerlink" title="代码生成与优化"></a>代码生成与优化</h3><p>这个过程就是编译器后端的内容，主要包括代码生成器、目标代码优化器。代码生成器将中间代码转换成目标机器代码，这个过程十分依赖于目标机器(字长、寄存器、整型、浮点型等)。目标代码优化器则负责对目标代码进行优化，如使用合适的寻址方式，位移替代乘法等。</p>
+<p>经过上面的一系列过程，如果没有报错的话，就说明我们是暂时安全的，此时就可以看到<del>可怕的</del>汇编文件了：</p>
+<p><img src="/assets/image-20221031235457390.png" alt="image-20221031235457390"></p>
+<p>在此处我们可以看到输出一个 hello world 所需要的所有的工作，虽然生成了很多的信息，但是还是可以清楚的看到<code>main</code>和<code>ret</code>,没错，我们程序的逻辑部分就包在这之中。值得注意的是，我们在 c 程序中调用了格式化输出的库函数<code>printf</code>，这个函数调用在程序中就对应于<code>call</code>指令，但是<code>puts@PLT</code>又是啥？奇怪的参数增加了。在函数调用的过程中，编译器需要知道所调用函数的地址，但是遗憾的是，<code>printf</code>函数不是我们编写的,我们只是引入了<code>stdio.h</code>，也就是说，在这个时候编译器并不知道<code>printf</code>是个啥，于是心想如果我抛个错，那不是显得我不太智慧？于是就留<code>call puts@PLT</code>占位，潇洒说到：等以后生成了过程链接表(Procedure Linking Table, PLT)再去找吧，爷摆烂了。</p>
+<h2 id="汇编-Assembly"><a href="#汇编-Assembly" class="headerlink" title="汇编(Assembly)"></a>汇编(Assembly)</h2><p>相比于复杂的编译过程，汇编器(as)要做的就简单许多。由于汇编指令与机器码是一一对应的，所以汇编器需做的就是，接受编译过程生成的汇编代码文件，安装汇编指令和机器指令的对照表一一对应的翻译(无情)，其输出为二进制目标文件(Object File)。这个过程可以使用如下命令完成：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ as hello.s -o hello.o</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ gcc -c hello.s -o hello.o</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ gcc -c hello.c -o hello.o</span><br></pre></td></tr></table></figure>
+
+<p>在经过汇编之后如果还想要简单地用 cat 来查看内容，你会惊呼“淦，怎么乱码了？”。这是由于汇编器的输出已经是二进制文件了，我们可以借助其他的工具来查看其中的内容，此处我们选择<code>objdump</code>来打开二进制目标文件：</p>
+<p><img src="/assets/image-20221101002344878.png" alt="image-20221101002344878"></p>
+<p>前面的各种输出的信息我们暂时无需关注直接看包含源码的<code>.text</code>节，右边是我们刚刚才见过的汇编代码，右侧则是经过翻译之后的 16 进制机器码，在这里我们又发现了编译器摆烂的证据：在地址<code>0xf</code>处可以看到<code>e8 00 00 00 00</code>,前面的<code>e8(11101000)</code>对应的就是<code>call</code>指令的机器码，后面那一串 0 就是编译器摆烂的结果。由于实在是不知道函数的入口地址，所以寄希望于其他模块，等待链接器来填坑。</p>
+<h2 id="链接-Linking"><a href="#链接-Linking" class="headerlink" title="链接(Linking)"></a>链接(Linking)</h2><p>链接则是一个十分难以理解的过程，该过程使用一个叫做链接器的程序(linker)，它接受一个或多个目标文件作为输入，经过链接之后，输出一个可执行文件，要生成一个 hello world 程序，在链接过程需要如下指令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ld -static [一大堆库...] hello.o --stast-group [...]</span><br></pre></td></tr></table></figure>
+
+<p>在前面的编译过程中我们已经看到了编译器其实是有摆烂的嫌疑的，问题来了，为啥他就可以放心大胆的摆烂？这就是链接器登场的时机了，链接器会解析程序中的未定义符号，重新计算各个目标的地址(重定位)，然后将目标文件中的占位符替换为符号的地址。</p>
+<p>在汇编语言中，有一个很重要的概念：符号，一个符号用来表示一个地址，这个地址可以是变量起始地址，也可以是一个子程序的入口地址。随着软件规模的扩大，把几十万几百万行代码放在一个源文件中维护想想就可怕，于是我们就需要把程序划分成不同的功能模块来进行组织。问题来了：不同模块之间如何通信？</p>
+<p>在 C&#x2F;C++中最常见的有模块间的函数调用和模块之间的变量访问。怎么访问？我们肯定需要一个地址，所以这两种方式都可以归结为一种方式：符号引用，以符号引用为线索，将不同的模块拼接起来，这就是链接器所做的事，有点像拼积木对吧。</p>
+<h3 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h3><p>链接的主要内容就是处理好各个模块之间相互引用的部分，使得各个模块之间可以正确的衔接通信，从原理上讲就是把一些指令对其它符号地址的引用进行修正。链接的过程主要包括：地址和空间分配、符号决议(也叫符号绑定、名称绑定、地址绑定)和重定位等。</p>
+<p>最基本的静态链接过程就是：源文件经过编译生成目标文件，目标文件和库一起编译生成可执行文件，库其实是一组目标文件的包，最常见的库就是运行时库，他是支持程序运行的基本函数集合。在编译时，编译器会将无法找到的符号地址暂时搁置，等待最后链接器来对这些符号引用进行修正。也就是说，是链接器使得我们可以直接引用其他模块的函数和全局变量而不需要知道他们的地址。这个地址修正的过程就是重定位，每一个需要被修正的地方就是重定位入口。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/">categories</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91-Preprocessing"><span class="toc-number">1.</span> <span class="toc-text">预编译(Preprocessing)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91-Compilation"><span class="toc-number">2.</span> <span class="toc-text">编译(Compilation)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">词法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">语法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">语义分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90"><span class="toc-number">2.4.</span> <span class="toc-text">中间语言生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-number">2.5.</span> <span class="toc-text">代码生成与优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96-Assembly"><span class="toc-number">3.</span> <span class="toc-text">汇编(Assembly)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5-Linking"><span class="toc-number">4.</span> <span class="toc-text">链接(Linking)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">4.1.</span> <span class="toc-text">静态链接</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://imaklex5.github.io/posts/72cd66a0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://imaklex5.github.io/posts/72cd66a0/&text=初探hello world"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://imaklex5.github.io/posts/72cd66a0/&is_video=false&description=初探hello world"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=初探hello world&body=Check out this article: https://imaklex5.github.io/posts/72cd66a0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://imaklex5.github.io/posts/72cd66a0/&title=初探hello world"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://imaklex5.github.io/posts/72cd66a0/&name=初探hello world&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://imaklex5.github.io/posts/72cd66a0/&t=初探hello world"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2022
+    Orzbot
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/categories/">categories</a></li><!--
+     --><!--
+       --><li><a href="/tags/">tags</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script src='https://unpkg.com/mermaid@9.1.3/dist/mermaid.min.js'> </script>
+<script>
+	if (window.mermaid) {
+		var config = {
+			theme: 'forest',
+		}
+		mermaid.initialize(config);
+	}
+</script>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
