@@ -1,4 +1,8 @@
 name: pages-auto-build-deploy
+
+permissions:
+  contents: write
+
 on:
   # workflow_dispatch: 
   push:
