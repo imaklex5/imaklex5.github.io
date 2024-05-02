@@ -1,6 +1,5 @@
 name: Hugo-Build-Deploy
 
-
 permissions:
   contents: write
 
