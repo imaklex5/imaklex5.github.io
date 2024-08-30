@@ -1,31 +1,35 @@
-name: pages-auto-build-deploy
+name: GitHub Pages
+
 on:
-  # workflow_dispatch: 
   push:
     branches:
-      - main
+      - main  # Set a branch to deploy
+  pull_request:
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-20.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          submodules: true
-          fetch-depth: 0
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.131.0'
+          # 是否启用 hugo extend
           extended: true
 
-      - name: Build Hugo
-        run: hugo -b "https://lucumt.info/" -e "production"
+      - name: Build
+        run: hugo -b "https://imaklex5.github.io/" -e "production"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          github_token: ${{ secrets.PAGE_ACTION_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          commit_message: ${{ github.event.head_commit.message }}
