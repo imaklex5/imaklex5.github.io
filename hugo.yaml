@@ -1,0 +1,67 @@
+baseURL: https://imaklex.com/
+languageCode: zh-cn
+title: hyc's log
+theme: PaperMod
+
+params:
+  assets:
+    favicon: favicon/favicon.ico
+    favicon16x16: favicon/favicon-16x16.png
+    favicon32x32: favicon/favicon-32x32.png
+  
+  HomeInfoParams:
+    Title: 👋hi there...
+    Content: ☄️For life, technology, and thoughts.
+  
+  socialIcons:
+    - name: email
+      url: mailto:eliot1238@outlook.com
+    - name: github
+      url: https://github.com/imaklex
+
+  # fuse.js
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys: ["title", "permalink", "summary", "content"]
+
+
+  # Latex
+  math: true
+
+  ShowReadingTime: true
+
+  ShowToc: true
+
+# Search
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+menus:
+  main:
+    - name: 🏠️Home
+      url: /
+      weight: 1
+    - name: 📚️Archives
+      url: /archives/
+      weight: 2
+    - name: 📑Categories
+      url: /categories/
+      weight: 3
+    - name: 🏷️Tags
+      url: /tags/
+      weight: 4
+    - name: 🔎search
+      url: /search/
+      weight: 5
+
+hasCJKLanguage: true
+enableEmoji: true
