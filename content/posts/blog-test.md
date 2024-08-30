@@ -2,7 +2,7 @@
 title: 'Blog Test'
 date: 2024-08-10T13:46:38+08:00
 Lastmod: 2024-08-16T13:46:38+08:00
-draft: true
+draft: false
 categories:
     - test
 tags:
@@ -10,6 +10,8 @@ tags:
 ---
 
 This is a post for testing.
+
+> Testing Github Actions Workflows
 
 <!--more-->
 
