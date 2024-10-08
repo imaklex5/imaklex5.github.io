@@ -1,13 +1,13 @@
-+++
-title = 'NBeats论文笔记'
-date = 2024-10-08T14:09:56+08:00
-draft = false
+---
+title: 'NBeats论文笔记'
+date: 2024-10-08T14:09:56+08:00
+draft: false
 categories:
     - PaperNotes
 tags:
     - 论文笔记
     - 时间序列
-+++
+---
 # NBeats论文笔记
 
 ## Abstract 
