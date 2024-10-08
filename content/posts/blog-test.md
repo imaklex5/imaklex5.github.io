@@ -39,6 +39,11 @@ Block Latex:
 $$
 \LaTeX
 $$
+$$
+\begin{aligned}
+\LaTeX
+\end{aigned}
+$$
 
 ## Header2
 

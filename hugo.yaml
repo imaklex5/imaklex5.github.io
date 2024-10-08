@@ -3,6 +3,19 @@ languageCode: zh-cn
 title: hyc's log
 theme: PaperMod
 
+markup:
+  goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - $$
+            - $$
+          inline:
+          - - $
+            - $
+        enable: true
+
 params:
   assets:
     favicon: favicon/favicon.ico
@@ -33,9 +46,7 @@ params:
 
   # Latex
   math: true
-
   ShowReadingTime: true
-
   ShowToc: true
 
 # Search
