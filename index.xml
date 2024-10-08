@@ -13,7 +13,7 @@
       <link>https://imaklex5.github.io/posts/n-beats-note/</link>
       <pubDate>Tue, 08 Oct 2024 14:09:56 +0800</pubDate>
       <guid>https://imaklex5.github.io/posts/n-beats-note/</guid>
-      <description>NBeats论文笔记 Abstract 我们专注于利用深度学习解决单变量时间序列点预测问题。我们提出了一种深度神经架构，该架构基于后向和前向残差链接以及非常深</description>
+      <description>本文提出了采用了纯MLP网络的模型来进行时序预测，首次证明了纯DL方法在该问题上的有效性，并且有着很好的可解释性</description>
     </item>
     <item>
       <title>Blog Test</title>
