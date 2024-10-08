@@ -23,6 +23,9 @@
     <loc>http://localhost:1313/categories/test/</loc>
     <lastmod>2024-08-16T13:46:38+08:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/links/</loc>
+    <lastmod>2021-11-06T15:15:53+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/archives/</loc>
   </url><url>
     <loc>http://localhost:1313/search/</loc>

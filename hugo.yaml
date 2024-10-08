@@ -47,21 +47,24 @@ outputs:
 
 menus:
   main:
-    - name: 🏠️Home
+    - name: 🏠️主页
       url: /
       weight: 1
-    - name: 📚️Archives
+    - name: ⌛️时间线
       url: /archives/
       weight: 2
-    - name: 📑Categories
+    - name: 📑分类
       url: /categories/
       weight: 3
-    - name: 🏷️Tags
+    - name: 🏷️标签
       url: /tags/
       weight: 4
-    - name: 🔎search
+    - name: 🔎搜索
       url: /search/
       weight: 5
+    - name: 🤝友链
+      url: /links/
+      weight: 6
 
 hasCJKLanguage: true
 enableEmoji: true
