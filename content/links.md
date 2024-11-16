@@ -14,7 +14,4 @@ showbreadcrumbs: false
 
 ---
 
-{{<friend name="抬头看云" url="https://blog.lkanyun.com/" logo="https://blog.lkanyun.com/images/avatar.jpg" word="强者自救，圣者渡人。">}}
-
-{{<friend name="EchoTail" url="https://echo-tail.github.io/Echo-Tail/" logo="https://echo-tail.github.io/Echo-Tail/images/avatar.png" word="">}}
-
+{{<friend>}}

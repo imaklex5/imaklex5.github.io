@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "LXGWWenKai";
+  src: url("/fonts/lxgw-wenkai/LXGWWenKai-Light.ttf") format("truetype");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LXGWWenKai";
+  src: url("/fonts/lxgw-wenkai/LXGWWenKai-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LXGWWenKai";
+  src: url("/fonts/lxgw-wenkai/LXGWWenKai-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LXGWZhenKai";
+  src: url("/fonts/LXGWZhenKaiGB-Regular.ttf") format("truetype");
+}
+
+body {
+  font-family: "LXGWWenKai";
+}
+
+#menu, .friend-name, strong, h1, h2, h3, h4, h5, h6 {
+  font-family: LXGWZhenKai;
+}
