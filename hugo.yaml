@@ -3,6 +3,9 @@ languageCode: zh-cn
 title: hyc's log
 theme: PaperMod
 
+disableThemeToggle: auto
+
+
 markup:
   goldmark:
     extensions:
@@ -17,6 +20,7 @@ markup:
         enable: true
 
 params:
+  comments: true
   assets:
     favicon: favicon/favicon.ico
     favicon16x16: favicon/favicon-16x16.png
@@ -43,11 +47,29 @@ params:
     # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
     keys: ["title", "permalink", "summary", "content"]
 
+  giscus:
+    repo: "imaklex5/imaklex5.github.io"
+    repoId: "R_kgDOMqjAiw"
+    category: "Announcements"
+    categoryId: "DIC_kwDOMqjAi84CiEjb"
+    mapping: "pathname"
+    strict: "0"
+    reactionsEnabled: "1"
+    emitMetadata: "0"
+    inputPosition: "top"
+    lightTheme: "light"
+    darkTheme: "dark"
+    lang: "zh-CN"
 
   # Latex
   math: true
   ShowReadingTime: true
   ShowToc: true
+  TocOpen: true
+  ShowShareButtons: true
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
+  ShowCodeCopyButtons: true
 
 # Search
 outputs:
